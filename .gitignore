@@ -1,0 +1,5 @@
+node_modules
+dist
+dist-ssr
+vorschau.html
+.DS_Store
