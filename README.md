@@ -45,11 +45,12 @@ Erzeugt `vorschau.html`: die komplette Startseite als **eine** Datei mit eingebe
 | --- | --- | --- |
 | Unternehmensdaten (Footer, Kontakt, Impressum) | `src/config.js` → `COMPANY` | ✅ eingetragen |
 | **Formularversand** einrichten | `src/config.js` → `FORM_ENDPOINT` | offen |
-| Hosting-Anbieter & Formular-Dienst in der Datenschutzerklärung | `src/components/LegalPage.jsx` → `Datenschutz()` | offen |
+| Hosting in der Datenschutzerklärung | `src/components/LegalPage.jsx` | ✅ GitHub Pages |
+| Formular-Dienst in der Datenschutzerklärung | `src/config.js` → `FORM_PROVIDER` | offen (sobald Formular aktiv) |
 | Domain (Canonical, Social-Media-Vorschau, Sitemap) | `index.html`, `public/` | ✅ www.firmenschub.de |
 | Veröffentlichung | `.github/workflows/deploy.yml` + Settings → Pages → Source „GitHub Actions" | offen |
 
-> **Hinweis zu den Rechtstexten:** Das Impressum ist mit deinen Angaben ausgefüllt. Die Datenschutzerklärung enthält noch markierte Platzhalter (Hosting, Formularversand). Beides ersetzt keine Rechtsberatung – bitte vor der Veröffentlichung prüfen lassen.
+> **Hinweis zu den Rechtstexten:** Das Impressum ist mit deinen Angaben ausgefüllt. Die Datenschutzerklärung nennt GitHub Pages als Hosting; der Formular-Dienst wird ergänzt, sobald das Formular aktiv ist. Beides ersetzt keine Rechtsberatung – bitte vor der Veröffentlichung prüfen lassen.
 
 ### Kontaktformular
 

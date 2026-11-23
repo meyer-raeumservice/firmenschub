@@ -21,6 +21,13 @@
 export const FORM_ENDPOINT = ''
 
 /**
+ * Anbieter des Formular-Dienstes – wird in der Datenschutzerklärung genannt,
+ * sobald FORM_ENDPOINT eingetragen ist. Beispiel für Formspree:
+ *   { name: 'Formspree, Inc.', address: '…', privacyUrl: 'https://formspree.io/legal/privacy-policy' }
+ */
+export const FORM_PROVIDER = null
+
+/**
  * Unternehmensangaben
  * -------------------
  * Werden im Footer, im Kontaktbereich, im Impressum, in der Datenschutzerklärung

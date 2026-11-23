@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { COMPANY } from '../config.js'
+import { COMPANY, FORM_ENDPOINT, FORM_PROVIDER } from '../config.js'
 import { initInteractions } from '../lib/interactions.js'
 import { Footer } from './Footer.jsx'
 import { Header } from './Header.jsx'
@@ -104,22 +104,69 @@ function Datenschutz() {
 
       <H2>2. Hosting und Server-Logfiles</H2>
       <p>
-        Diese Website wird bei <Ph>Name und Anschrift des Hosting-Anbieters</Ph> gehostet. Beim Aufruf der Website
-        werden durch den Hosting-Anbieter technisch notwendige Daten (z. B. IP-Adresse, Datum und Uhrzeit des Zugriffs,
-        aufgerufene Seite, Browsertyp) in sogenannten Server-Logfiles verarbeitet.
-        <Ph>Rechtsgrundlage, Speicherdauer und ggf. Auftragsverarbeitungsvertrag ergänzen</Ph>
+        Diese Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub, Inc., 88 Colin P. Kelly Jr.
+        Street, San Francisco, CA 94107, USA. Beim Aufruf der Website verarbeitet GitHub technisch notwendige Daten,
+        insbesondere deine IP-Adresse, Datum und Uhrzeit des Zugriffs, die aufgerufene Seite sowie Angaben zu Browser und
+        Betriebssystem. Diese Daten werden benötigt, um die Website auszuliefern und ihre Sicherheit und Stabilität zu
+        gewährleisten.
+      </p>
+      <p>
+        Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in einer sicheren, schnellen
+        und zuverlässigen Bereitstellung der Website. Dabei können Daten in die USA übermittelt werden. GitHub ist nach
+        dem EU-US Data Privacy Framework zertifiziert, auf das sich die Übermittlung stützt (Art. 45 DSGVO). Weitere
+        Informationen findest du in der{' '}
+        <a
+          href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-navy underline decoration-ember/60 underline-offset-4"
+        >
+          Datenschutzerklärung von GitHub
+        </a>
+        .
       </p>
 
-      <H2>3. Kontaktformular</H2>
+      <H2>3. Kontaktaufnahme</H2>
       <p>
-        Wenn du uns über das Kontaktformular eine Anfrage sendest, verarbeiten wir die von dir angegebenen Daten (Name,
-        Unternehmen, E-Mail-Adresse, optional Telefonnummer, gewünschte Leistung und Nachricht), um deine Anfrage zu
-        bearbeiten und mit dir in Kontakt zu treten.
+        Wenn du uns per E-Mail, telefonisch oder über das Kontaktformular kontaktierst, verarbeiten wir die von dir
+        angegebenen Daten (z. B. Name, Unternehmen, E-Mail-Adresse, Telefonnummer, gewünschte Leistung und Nachricht), um
+        deine Anfrage zu bearbeiten und mit dir in Kontakt zu treten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO,
+        soweit deine Anfrage auf einen Vertrag oder vorvertragliche Maßnahmen abzielt, im Übrigen Art. 6 Abs. 1 lit. f
+        DSGVO. Wir löschen deine Daten, sobald sie für die Bearbeitung nicht mehr erforderlich sind und keine gesetzlichen
+        Aufbewahrungspflichten entgegenstehen.
       </p>
-      <p>
-        Für den technischen Versand des Formulars nutzen wir <Ph>Name und Anschrift des Formular-Dienstleisters</Ph>.
-        <Ph>Rechtsgrundlage (z. B. Art. 6 Abs. 1 lit. b DSGVO), Speicherdauer und Löschfristen ergänzen</Ph>
-      </p>
+      {FORM_ENDPOINT ? (
+        <p>
+          Für den technischen Versand des Kontaktformulars nutzen wir{' '}
+          {FORM_PROVIDER ? (
+            <>
+              {FORM_PROVIDER.name}, {FORM_PROVIDER.address}
+              {FORM_PROVIDER.privacyUrl ? (
+                <>
+                  {' '}(
+                  <a
+                    href={FORM_PROVIDER.privacyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-navy underline decoration-ember/60 underline-offset-4"
+                  >
+                    Datenschutzhinweise des Anbieters
+                  </a>
+                  )
+                </>
+              ) : null}
+            </>
+          ) : (
+            <Ph>Name und Anschrift des Formular-Dienstleisters</Ph>
+          )}
+          .
+        </p>
+      ) : (
+        <p>
+          Das Kontaktformular ist derzeit noch nicht aktiv. Über das Formular werden aktuell keine Daten übermittelt
+          oder gespeichert. Sobald der Versand eingerichtet ist, nennen wir an dieser Stelle den eingesetzten Dienstleister.
+        </p>
+      )}
 
       <H2>4. Schriftarten</H2>
       <p>
@@ -145,9 +192,7 @@ function Datenschutz() {
       </ul>
 
       <H2>7. Stand</H2>
-      <p>
-        November 2026
-      </p>
+      <p>November 2026</p>
     </>
   )
 }
@@ -177,7 +222,7 @@ export function LegalPage({ page }) {
               {title}
               <span className="text-ember">.</span>
             </h1>
-            {!isImprint ? (
+            {!isImprint && FORM_ENDPOINT && !FORM_PROVIDER ? (
               <div className="mt-8">
                 <Notice />
               </div>
