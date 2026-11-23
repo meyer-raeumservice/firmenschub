@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { FORM_ENDPOINT } from '../config.js'
+import { COMPANY, FORM_ENDPOINT } from '../config.js'
 import { SERVICE_OPTIONS } from '../content.js'
 import { Icon } from './Icon.jsx'
 import { Button, Dot, SectionLabel } from './ui.jsx'
@@ -91,6 +91,40 @@ export function Contact() {
                 </li>
               ))}
             </ul>
+
+            {COMPANY.email || COMPANY.phone ? (
+              <div className="mt-10 border-t border-white/10 pt-8">
+                <p className="text-[0.72rem] font-bold uppercase tracking-[0.2em] text-white/55">Lieber direkt?</p>
+                <ul className="mt-4 space-y-3">
+                  {COMPANY.email ? (
+                    <li>
+                      <a
+                        href={`mailto:${COMPANY.email}`}
+                        className="group inline-flex items-center gap-3 font-semibold text-white transition-colors hover:text-ember"
+                      >
+                        <span className="grid size-10 place-items-center rounded-full bg-white/8 text-ember shadow-[inset_0_0_0_1px_rgb(255_255_255/0.1)] transition-colors group-hover:bg-ember group-hover:text-navy">
+                          <Icon name="mail" className="size-[1.1rem]" />
+                        </span>
+                        {COMPANY.email}
+                      </a>
+                    </li>
+                  ) : null}
+                  {COMPANY.phone ? (
+                    <li>
+                      <a
+                        href={`tel:${COMPANY.phoneIntl}`}
+                        className="group inline-flex items-center gap-3 font-semibold text-white transition-colors hover:text-ember"
+                      >
+                        <span className="grid size-10 place-items-center rounded-full bg-white/8 text-ember shadow-[inset_0_0_0_1px_rgb(255_255_255/0.1)] transition-colors group-hover:bg-ember group-hover:text-navy">
+                          <Icon name="call" className="size-[1.05rem]" />
+                        </span>
+                        {COMPANY.phone}
+                      </a>
+                    </li>
+                  ) : null}
+                </ul>
+              </div>
+            ) : null}
           </div>
         </div>
 

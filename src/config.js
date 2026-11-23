@@ -23,10 +23,20 @@ export const FORM_ENDPOINT = ''
 /**
  * Unternehmensangaben
  * -------------------
- * `null` = noch nicht hinterlegt → es wird ein klar gekennzeichneter Platzhalter angezeigt.
+ * Werden im Footer, im Kontaktbereich, im Impressum, in der Datenschutzerklärung
+ * und in den strukturierten Daten für Suchmaschinen verwendet.
+ * `null` = nicht vorhanden → wird nicht angezeigt.
  */
 export const COMPANY = {
-  email: null, // z. B. 'hallo@firmenschub.de'
-  phone: null, // z. B. '+49 123 456789'
-  address: null, // z. B. 'Musterstraße 1, 12345 Musterstadt'
+  name: 'firmenschub.',
+  owner: 'Daniel Meyer',
+  legalForm: 'Einzelunternehmen',
+  street: 'Am Hammersberg 5',
+  postalCode: '66280',
+  city: 'Sulzbach',
+  email: 'info@firmenschub.de',
+  phone: '0163 4737058',
+  phoneIntl: '+491634737058',
+  vatId: null, // Umsatzsteuer-ID, falls vorhanden, z. B. 'DE123456789'
+  url: 'https://www.firmenschub.de/',
 }

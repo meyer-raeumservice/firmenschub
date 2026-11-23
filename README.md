@@ -41,17 +41,15 @@ Erzeugt `vorschau.html`: die komplette Startseite als **eine** Datei mit eingebe
 
 ## Vor dem Livegang: bitte ergänzen
 
-| Was | Wo |
-| --- | --- |
-| **Formularversand** einrichten | `src/config.js` → `FORM_ENDPOINT` |
-| E-Mail, Telefon, Adresse (Footer) | `src/config.js` → `COMPANY` |
-| **Impressum** (Platzhalter in eckigen Klammern) | `src/components/LegalPage.jsx` → `Impressum()` |
-| **Datenschutzerklärung** (Platzhalter) | `src/components/LegalPage.jsx` → `Datenschutz()` |
-| Domain für Canonical / Social-Media-Vorschau | `index.html` (auskommentierte TODO-Zeilen, `og:image` als absolute URL) |
-| `noindex` der Rechtsseiten entfernen (sobald vollständig) | `impressum.html`, `datenschutz.html` |
-| Sitemap-Zeile | `public/robots.txt` |
+| Was | Wo | Status |
+| --- | --- | --- |
+| Unternehmensdaten (Footer, Kontakt, Impressum) | `src/config.js` → `COMPANY` | ✅ eingetragen |
+| **Formularversand** einrichten | `src/config.js` → `FORM_ENDPOINT` | offen |
+| Hosting-Anbieter & Formular-Dienst in der Datenschutzerklärung | `src/components/LegalPage.jsx` → `Datenschutz()` | offen |
+| Domain (Canonical, Social-Media-Vorschau, Sitemap) | `index.html`, `public/` | ✅ www.firmenschub.de |
+| Veröffentlichung | `.github/workflows/deploy.yml` + Settings → Pages → Source „GitHub Actions" | offen |
 
-> **Hinweis zu den Rechtstexten:** Impressum und Datenschutzerklärung sind Vorlagen mit deutlich markierten Platzhaltern. Sie ersetzen keine Rechtsberatung. Bitte lass sie vor der Veröffentlichung prüfen.
+> **Hinweis zu den Rechtstexten:** Das Impressum ist mit deinen Angaben ausgefüllt. Die Datenschutzerklärung enthält noch markierte Platzhalter (Hosting, Formularversand). Beides ersetzt keine Rechtsberatung – bitte vor der Veröffentlichung prüfen lassen.
 
 ### Kontaktformular
 

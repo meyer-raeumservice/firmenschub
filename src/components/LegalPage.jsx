@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { COMPANY } from '../config.js'
 import { initInteractions } from '../lib/interactions.js'
 import { Footer } from './Footer.jsx'
 import { Header } from './Header.jsx'
@@ -22,10 +23,36 @@ function Notice() {
     <div className="flex items-start gap-3 rounded-2xl bg-amber-50 p-5 text-amber-900 shadow-[inset_0_0_0_1px_rgb(217_119_6/0.3)]">
       <Icon name="info" className="mt-0.5 size-5 shrink-0" strokeWidth={1.9} />
       <p className="text-[0.95rem] leading-relaxed">
-        <strong>Hinweis:</strong> Diese Seite ist eine Vorlage mit Platzhaltern und stellt keine Rechtsberatung dar.
-        Bitte ergänze alle markierten Angaben und lass die Inhalte vor der Veröffentlichung rechtlich prüfen.
+        <strong>Hinweis:</strong> Diese Datenschutzerklärung wird noch vervollständigt. Die markierten Angaben
+        (z. B. Hosting und Formularversand) werden ergänzt, sobald die Dienste feststehen.
       </p>
     </div>
+  )
+}
+
+function Contact() {
+  return (
+    <p>
+      Telefon:{' '}
+      <a href={`tel:${COMPANY.phoneIntl}`} className="font-semibold text-navy underline decoration-ember/60 underline-offset-4">
+        {COMPANY.phone}
+      </a>
+      <br />
+      E-Mail:{' '}
+      <a href={`mailto:${COMPANY.email}`} className="font-semibold text-navy underline decoration-ember/60 underline-offset-4">
+        {COMPANY.email}
+      </a>
+    </p>
+  )
+}
+
+function Address() {
+  return (
+    <>
+      {COMPANY.street}
+      <br />
+      {COMPANY.postalCode} {COMPANY.city}
+    </>
   )
 }
 
@@ -34,43 +61,28 @@ function Impressum() {
     <>
       <H2>Angaben gemäß § 5 DDG</H2>
       <p>
-        <Ph>Vor- und Nachname bzw. Firmenname inkl. Rechtsform</Ph>
+        {COMPANY.owner}
         <br />
-        firmenschub.
+        {COMPANY.name} ({COMPANY.legalForm})
         <br />
-        <Ph>Straße und Hausnummer</Ph>
-        <br />
-        <Ph>PLZ und Ort</Ph>
+        <Address />
       </p>
 
       <H2>Kontakt</H2>
-      <p>
-        Telefon: <Ph>Telefonnummer</Ph>
-        <br />
-        E-Mail: <Ph>E-Mail-Adresse</Ph>
-      </p>
+      <Contact />
 
-      <H2>Umsatzsteuer-ID</H2>
-      <p>
-        Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: <Ph>USt-IdNr., falls vorhanden</Ph>
-      </p>
-
-      <H2>Registereintrag</H2>
-      <p>
-        <Ph>Falls zutreffend: Registergericht und Registernummer – andernfalls diesen Abschnitt entfernen</Ph>
-      </p>
+      {COMPANY.vatId ? (
+        <>
+          <H2>Umsatzsteuer-ID</H2>
+          <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: {COMPANY.vatId}</p>
+        </>
+      ) : null}
 
       <H2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</H2>
       <p>
-        <Ph>Vor- und Nachname</Ph>
+        {COMPANY.owner}
         <br />
-        <Ph>Anschrift</Ph>
-      </p>
-
-      <H2>Verbraucherstreitbeilegung</H2>
-      <p>
-        <Ph>Angabe, ob du bereit oder verpflichtet bist, an Streitbeilegungsverfahren vor einer
-        Verbraucherschlichtungsstelle teilzunehmen</Ph>
+        <Address />
       </p>
     </>
   )
@@ -82,14 +94,13 @@ function Datenschutz() {
       <H2>1. Verantwortliche Stelle</H2>
       <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:</p>
       <p>
-        <Ph>Vor- und Nachname bzw. Firmenname</Ph>
+        {COMPANY.owner}
         <br />
-        <Ph>Straße und Hausnummer, PLZ und Ort</Ph>
+        {COMPANY.name} ({COMPANY.legalForm})
         <br />
-        E-Mail: <Ph>E-Mail-Adresse</Ph>
-        <br />
-        Telefon: <Ph>Telefonnummer</Ph>
+        <Address />
       </p>
+      <Contact />
 
       <H2>2. Hosting und Server-Logfiles</H2>
       <p>
@@ -119,7 +130,6 @@ function Datenschutz() {
       <H2>5. Cookies und Analyse-Tools</H2>
       <p>
         Die Website selbst setzt in der vorliegenden Fassung keine Cookies und keine Analyse- oder Tracking-Tools ein.
-        <Ph>Bei späterem Einsatz von Cookies, Analyse- oder Marketing-Tools diesen Abschnitt anpassen</Ph>
       </p>
 
       <H2>6. Deine Rechte</H2>
@@ -136,7 +146,7 @@ function Datenschutz() {
 
       <H2>7. Stand</H2>
       <p>
-        <Ph>Datum der letzten Aktualisierung</Ph>
+        November 2026
       </p>
     </>
   )
@@ -167,9 +177,11 @@ export function LegalPage({ page }) {
               {title}
               <span className="text-ember">.</span>
             </h1>
-            <div className="mt-8">
-              <Notice />
-            </div>
+            {!isImprint ? (
+              <div className="mt-8">
+                <Notice />
+              </div>
+            ) : null}
             <div className="mt-12 space-y-4 text-[1.02rem] leading-relaxed text-slate-700">
               {isImprint ? <Impressum /> : <Datenschutz />}
             </div>

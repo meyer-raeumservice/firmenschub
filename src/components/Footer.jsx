@@ -66,9 +66,19 @@ export function Footer({ base = '', joined = true }) {
               <li>
                 <FooterLink href={href('kontakt')}>Kontaktformular</FooterLink>
               </li>
-              <li>{COMPANY.email ? <a href={`mailto:${COMPANY.email}`} className="hover:text-white">{COMPANY.email}</a> : <Placeholder>E-Mail</Placeholder>}</li>
-              <li>{COMPANY.phone ? <a href={`tel:${COMPANY.phone.replace(/\s/g, '')}`} className="hover:text-white">{COMPANY.phone}</a> : <Placeholder>Telefon</Placeholder>}</li>
-              <li>{COMPANY.address ? <span>{COMPANY.address}</span> : <Placeholder>Adresse</Placeholder>}</li>
+              <li>{COMPANY.email ? <a href={`mailto:${COMPANY.email}`} className="break-all hover:text-white">{COMPANY.email}</a> : <Placeholder>E-Mail</Placeholder>}</li>
+              <li>{COMPANY.phone ? <a href={`tel:${COMPANY.phoneIntl}`} className="hover:text-white">{COMPANY.phone}</a> : <Placeholder>Telefon</Placeholder>}</li>
+              <li>
+                {COMPANY.street ? (
+                  <address className="not-italic leading-relaxed text-white/60">
+                    {COMPANY.street}
+                    <br />
+                    {COMPANY.postalCode} {COMPANY.city}
+                  </address>
+                ) : (
+                  <Placeholder>Adresse</Placeholder>
+                )}
+              </li>
             </ul>
           </div>
 
