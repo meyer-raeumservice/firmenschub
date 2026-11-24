@@ -163,8 +163,9 @@ function Datenschutz() {
         </p>
       ) : (
         <p>
-          Das Kontaktformular ist derzeit noch nicht aktiv. Über das Formular werden aktuell keine Daten übermittelt
-          oder gespeichert. Sobald der Versand eingerichtet ist, nennen wir an dieser Stelle den eingesetzten Dienstleister.
+          Das Kontaktformular übermittelt selbst keine Daten an uns oder an Dritte. Beim Absenden öffnet sich dein
+          E-Mail-Programm mit einer vorausgefüllten Nachricht an {COMPANY.email}. Erst wenn du diese E-Mail dort
+          absendest, erhalten wir deine Angaben – auf demselben Weg wie bei jeder anderen E-Mail.
         </p>
       )}
 

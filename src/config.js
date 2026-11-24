@@ -7,9 +7,11 @@
 /**
  * Formularversand
  * ----------------
- * Solange hier nichts eingetragen ist, wird KEINE Anfrage versendet.
- * Das Formular zeigt dann einen klaren Hinweis statt einer (falschen) Erfolgsmeldung.
+ * Standard (leer lassen): Beim Absenden öffnet sich das E-Mail-Programm des Besuchers
+ * mit einer fertig ausgefüllten Anfrage an COMPANY.email. Kein externer Dienst nötig.
  *
+ * Optional kann stattdessen ein Formular-Dienst genutzt werden – dann wird direkt
+ * aus dem Formular gesendet, ohne Mailprogramm.
  * Trage hier die URL deines Formular-Endpunkts ein, z. B.:
  *   - Formspree:  'https://formspree.io/f/DEINE-ID'
  *   - Getform, Basin, Web3Forms o. Ä.

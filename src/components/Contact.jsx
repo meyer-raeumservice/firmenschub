@@ -25,6 +25,33 @@ function validate(v) {
 
 const ORDER = ['name', 'company', 'email', 'phone', 'services', 'message', 'privacy']
 
+/** Baut aus den Formularangaben eine vorausgefüllte E-Mail (mailto-Link) */
+function buildMailto(v) {
+  const services = v.services
+    .map((id) => SERVICE_OPTIONS.find((o) => o.id === id)?.label)
+    .filter(Boolean)
+    .join(', ')
+  const body = [
+    'Hallo firmenschub-Team,',
+    '',
+    'ich interessiere mich für ein kostenloses Erstgespräch.',
+    '',
+    `Name: ${v.name.trim()}`,
+    `Unternehmen: ${v.company.trim()}`,
+    `E-Mail: ${v.email.trim()}`,
+    `Telefon: ${v.phone.trim() || '–'}`,
+    `Gewünschte Leistung: ${services}`,
+    '',
+    'Nachricht:',
+    v.message.trim(),
+    '',
+    'Viele Grüße',
+    v.name.trim(),
+  ].join('\r\n')
+  const subject = `Anfrage Erstgespräch – ${v.company.trim()}`
+  return `mailto:${COMPANY.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+}
+
 export function Contact() {
   const nameRef = useRef(null)
 
@@ -141,10 +168,12 @@ function ContactForm({ nameRef }) {
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   const [submitted, setSubmitted] = useState(false)
-  const [status, setStatus] = useState('idle') // idle | sending | success | error | not-configured
+  const [status, setStatus] = useState('idle') // idle | sending | success | error | mail-opened | not-configured
   const [summary, setSummary] = useState(false)
   const formRef = useRef(null)
   const configured = Boolean(FORM_ENDPOINT)
+  // Ohne Formular-Dienst wird die Anfrage als fertige E-Mail im Mailprogramm des Besuchers geöffnet.
+  const viaMail = !configured && Boolean(COMPANY.email)
 
   // Vorauswahl aus den Leistungskarten
   useEffect(() => {
@@ -186,8 +215,15 @@ function ContactForm({ nameRef }) {
     setSummary(false)
     if (values.hp) return // Honeypot ausgefüllt → vermutlich Spam, nichts senden
 
+    if (viaMail) {
+      // Anfrage als vorausgefüllte E-Mail öffnen – gesendet wird erst im Mailprogramm des Besuchers.
+      window.location.href = buildMailto(values)
+      setStatus('mail-opened')
+      return
+    }
+
     if (!configured) {
-      // Ehrlich bleiben: ohne Endpunkt wird nichts versendet.
+      // Ehrlich bleiben: ohne Endpunkt und ohne E-Mail-Adresse wird nichts versendet.
       setStatus('not-configured')
       return
     }
@@ -240,7 +276,7 @@ function ContactForm({ nameRef }) {
           </h3>
           <p className="mt-1.5 text-slate-600">Ein paar Angaben genügen – wir melden uns persönlich bei dir.</p>
         </div>
-        {!configured ? (
+        {!configured && !viaMail ? (
           <p className="inline-flex items-center gap-2 rounded-full bg-amber-50 px-3 py-1.5 text-xs font-bold text-amber-800 shadow-[inset_0_0_0_1px_rgb(217_119_6/0.35)]">
             <span className="size-1.5 rounded-full bg-amber-500" aria-hidden="true" />
             Formularversand noch einzurichten
@@ -429,16 +465,24 @@ function ContactForm({ nameRef }) {
       </div>
 
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-slate-500">
-          <span className="text-ember-ink" aria-hidden="true">
-            *
-          </span>{' '}
-          Pflichtfelder
-        </p>
+        <div className="text-sm text-slate-500">
+          <p>
+            <span className="text-ember-ink" aria-hidden="true">
+              *
+            </span>{' '}
+            Pflichtfelder
+          </p>
+          {viaMail ? (
+            <p className="mt-1 flex items-center gap-1.5">
+              <Icon name="mail" className="size-4 shrink-0 text-ember-ink" />
+              Öffnet dein E-Mail-Programm mit deiner fertigen Anfrage.
+            </p>
+          ) : null}
+        </div>
         <Button
           type="submit"
           size="lg"
-          className="w-full sm:w-auto"
+          className="w-full shrink-0 sm:w-auto"
           icon={status === 'sending' ? null : 'arrowRight'}
           disabled={status === 'sending'}
           aria-disabled={status === 'sending'}
@@ -455,6 +499,25 @@ function ContactForm({ nameRef }) {
       </div>
 
       <div aria-live="polite" role="status">
+        {status === 'mail-opened' ? (
+          <Notice tone="info" icon="mail" title="Fast geschafft – bitte noch in deinem E-Mail-Programm senden">
+            Deine Anfrage wurde als fertige E-Mail an {COMPANY.email} geöffnet. Tippe dort noch auf „Senden“. Hat sich
+            nichts geöffnet? Dann schreib uns direkt an{' '}
+            <a href={`mailto:${COMPANY.email}`} className="font-semibold underline decoration-ember underline-offset-4">
+              {COMPANY.email}
+            </a>
+            {COMPANY.phone ? (
+              <>
+                {' '}
+                oder ruf an unter{' '}
+                <a href={`tel:${COMPANY.phoneIntl}`} className="font-semibold underline decoration-ember underline-offset-4">
+                  {COMPANY.phone}
+                </a>
+              </>
+            ) : null}
+            .
+          </Notice>
+        ) : null}
         {status === 'not-configured' ? (
           <Notice tone="amber" icon="info" title="Formularversand noch nicht eingerichtet">
             Deine Anfrage wurde <strong>nicht</strong> übermittelt, da die Formularanbindung noch eingerichtet werden muss.
@@ -511,6 +574,7 @@ function Notice({ tone, icon, title, children }) {
     amber: 'bg-amber-50 text-amber-900 shadow-[inset_0_0_0_1px_rgb(217_119_6/0.3)]',
     red: 'bg-red-50 text-red-900 shadow-[inset_0_0_0_1px_rgb(220_38_38/0.25)]',
     green: 'bg-emerald-50 text-emerald-900 shadow-[inset_0_0_0_1px_rgb(5_150_105/0.3)]',
+    info: 'bg-slate-50 text-navy shadow-[inset_0_0_0_1px_rgb(11_17_32/0.12)]',
   }
   return (
     <div className={`mt-6 flex items-start gap-3 rounded-2xl p-5 ${tones[tone]}`}>

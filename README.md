@@ -44,26 +44,27 @@ Erzeugt `vorschau.html`: die komplette Startseite als **eine** Datei mit eingebe
 | Was | Wo | Status |
 | --- | --- | --- |
 | Unternehmensdaten (Footer, Kontakt, Impressum) | `src/config.js` → `COMPANY` | ✅ eingetragen |
-| **Formularversand** einrichten | `src/config.js` → `FORM_ENDPOINT` | offen |
+| Formularversand | per E-Mail-Programm an info@firmenschub.de (optional: `FORM_ENDPOINT`) | ✅ |
 | Hosting in der Datenschutzerklärung | `src/components/LegalPage.jsx` | ✅ GitHub Pages |
-| Formular-Dienst in der Datenschutzerklärung | `src/config.js` → `FORM_PROVIDER` | offen (sobald Formular aktiv) |
+| Formular-Dienst in der Datenschutzerklärung | nur nötig, falls `FORM_ENDPOINT` genutzt wird | – |
 | Domain (Canonical, Social-Media-Vorschau, Sitemap) | `index.html`, `public/` | ✅ www.firmenschub.de |
-| Veröffentlichung | `.github/workflows/deploy.yml` + Settings → Pages → Source „GitHub Actions" | offen |
+| Veröffentlichung | GitHub Pages über `.github/workflows/deploy.yml`, live auf https://www.firmenschub.de | ✅ |
 
-> **Hinweis zu den Rechtstexten:** Das Impressum ist mit deinen Angaben ausgefüllt. Die Datenschutzerklärung nennt GitHub Pages als Hosting; der Formular-Dienst wird ergänzt, sobald das Formular aktiv ist. Beides ersetzt keine Rechtsberatung – bitte vor der Veröffentlichung prüfen lassen.
+> **Hinweis zu den Rechtstexten:** Das Impressum ist mit deinen Angaben ausgefüllt. Die Datenschutzerklärung nennt GitHub Pages als Hosting; das Formular nutzt das E-Mail-Programm des Besuchers, es ist kein Drittanbieter beteiligt. Beides ersetzt keine Rechtsberatung – bitte vor der Veröffentlichung prüfen lassen.
 
 ### Kontaktformular
 
-Solange `FORM_ENDPOINT` leer ist, wird **nichts versendet**. Das Formular zeigt dann ehrlich *„Formularversand noch nicht eingerichtet"* an. Es erscheint keine falsche Erfolgsmeldung, und die Eingaben des Besuchers bleiben erhalten.
+Das Formular arbeitet **ohne externen Dienst**: Nach erfolgreicher Prüfung der Eingaben öffnet sich das E-Mail-Programm des Besuchers mit einer fertig ausgefüllten Anfrage an `info@firmenschub.de` (Betreff, Name, Unternehmen, Kontakt, gewünschte Leistung, Nachricht). Gesendet wird erst, wenn der Besucher dort auf „Senden“ tippt – die Seite zeigt deshalb keinen „Erfolgreich gesendet"-Hinweis, sondern bittet darum, die E-Mail abzuschicken, und nennt E-Mail und Telefon als Ausweichweg.
 
-Zum Aktivieren trägst du einen Endpunkt ein, der JSON per `POST` annimmt, zum Beispiel:
+Optional kann später ein Formular-Dienst (z. B. Formspree) genutzt werden, damit direkt aus der Seite gesendet wird:
 
 ```js
 // src/config.js
 export const FORM_ENDPOINT = 'https://formspree.io/f/DEINE-ID'
+export const FORM_PROVIDER = { name: 'Formspree, Inc.', address: '…', privacyUrl: 'https://formspree.io/legal/privacy-policy' }
 ```
 
-Eine Erfolgsmeldung erscheint erst, wenn der Server mit einem 2xx-Status antwortet. Übermittelt werden die Felder `name`, `unternehmen`, `email`, `telefon`, `leistungen`, `nachricht` und `datenschutz_einwilligung`. Ein unsichtbares Honeypot-Feld hält einfache Spam-Bots ab.
+Eine Erfolgsmeldung erscheint dann erst, wenn der Server mit einem 2xx-Status antwortet. Der Anbieter wird automatisch in der Datenschutzerklärung genannt.
 
 ---
 
