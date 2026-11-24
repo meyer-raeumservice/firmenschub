@@ -26,7 +26,7 @@ function LitText({ text, className = '' }) {
 
 export function About() {
   return (
-    <section id="ueber-uns" aria-labelledby="ueber-title" className="panel grain">
+    <section aria-labelledby="ueber-title" className="panel grain">
       <div
         className="pointer-events-none absolute -left-1/4 -top-1/3 -z-10 aspect-square w-[60rem] max-w-[150vw] rounded-full bg-[radial-gradient(closest-side,rgb(255_107_53/0.14),transparent)]"
         aria-hidden="true"
@@ -37,7 +37,7 @@ export function About() {
       />
 
       <div className="shell section">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div id="ueber-uns" className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-32" data-reveal>
               <SectionLabel index="05" tone="dark">

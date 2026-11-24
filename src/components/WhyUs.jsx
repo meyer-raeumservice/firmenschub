@@ -4,7 +4,7 @@ import { Dot, Logo, SectionLabel } from './ui.jsx'
 
 export function WhyUs() {
   return (
-    <section id="warum" aria-labelledby="warum-title" className="panel grain">
+    <section aria-labelledby="warum-title" className="panel grain">
       <div
         className="pointer-events-none absolute -bottom-1/3 -right-1/4 -z-10 aspect-square w-[60rem] max-w-[140vw] rounded-full bg-[radial-gradient(closest-side,rgb(255_107_53/0.16),transparent)]"
         aria-hidden="true"
@@ -15,7 +15,7 @@ export function WhyUs() {
       />
 
       <div className="shell section">
-        <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
+        <div id="warum" className="grid gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7" data-reveal>
             <SectionLabel index="02" tone="dark">
               Warum firmenschub.

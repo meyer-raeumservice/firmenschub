@@ -5,12 +5,12 @@ import { Dot, SectionLabel } from './ui.jsx'
 
 export function Services() {
   return (
-    <section id="leistungen" aria-labelledby="leistungen-title" className="section overflow-hidden">
+    <section aria-labelledby="leistungen-title" className="section overflow-hidden">
       <div
         className="pointer-events-none absolute -right-40 top-10 -z-10 aspect-square w-[46rem] rounded-full bg-[radial-gradient(closest-side,rgb(255_107_53/0.08),transparent)]"
         aria-hidden="true"
       />
-      <div className="shell">
+      <div id="leistungen" className="shell">
         <header className="grid items-end gap-8 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7" data-reveal>
             <SectionLabel index="01">Leistungen</SectionLabel>

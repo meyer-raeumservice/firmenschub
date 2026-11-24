@@ -64,7 +64,7 @@ export function Contact() {
   }
 
   return (
-    <section id="kontakt" aria-labelledby="kontakt-title" className="panel panel-join-bottom grain">
+    <section aria-labelledby="kontakt-title" className="panel panel-join-bottom grain">
       <div
         className="pointer-events-none absolute -left-1/4 top-0 -z-10 aspect-square w-[64rem] max-w-[160vw] rounded-full bg-[radial-gradient(closest-side,rgb(255_107_53/0.2),transparent)]"
         aria-hidden="true"
@@ -75,7 +75,7 @@ export function Contact() {
       />
 
       <div className="shell section grid grid-cols-1 gap-14 lg:!pb-28 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-5">
+        <div id="kontakt" className="lg:col-span-5">
           <div className="lg:sticky lg:top-32" data-reveal>
             <SectionLabel index="07" tone="dark">
               Kontakt

@@ -4,9 +4,9 @@ import { Dot, SectionLabel } from './ui.jsx'
 
 export function Industries() {
   return (
-    <section id="branchen" aria-labelledby="branchen-title" className="section !pb-10 md:!pb-14">
+    <section aria-labelledby="branchen-title" className="section !pb-10 md:!pb-14">
       <div className="bg-dots-light pointer-events-none absolute inset-x-0 top-0 -z-10 h-[32rem] [mask-image:radial-gradient(ellipse_50%_60%_at_50%_0%,#000,transparent)]" aria-hidden="true" />
-      <div className="shell">
+      <div id="branchen" className="shell">
         <header className="mx-auto max-w-3xl text-center" data-reveal>
           <SectionLabel index="03">Branchen</SectionLabel>
           <h2 id="branchen-title" className="h2 mt-6 text-navy">

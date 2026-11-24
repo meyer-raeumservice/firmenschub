@@ -29,7 +29,8 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
-    scroll-padding-top: 6.5rem;
+    /* Abstand für Sprungmarken unter dem fixierten Header (nur hier, nicht doppelt) */
+    scroll-padding-top: 7.25rem;
   }
   body {
     background: var(--color-mist);
@@ -50,9 +51,6 @@
   }
   button {
     cursor: pointer;
-  }
-  [id] {
-    scroll-margin-top: 6.5rem;
   }
 }
 
@@ -1898,7 +1896,10 @@
 .sv-trend path {
   stroke-dasharray: 1;
   stroke-dashoffset: calc(1 - var(--on));
-  transition: stroke-dashoffset 1.2s var(--ease-out-expo) 0.15s;
+  opacity: var(--on); /* sonst zeichnet die runde Linienkappe im Ruhezustand einen Punkt */
+  transition:
+    stroke-dashoffset 1.2s var(--ease-out-expo) 0.15s,
+    opacity 0.2s ease 0.15s;
 }
 .sv-toast {
   position: absolute;

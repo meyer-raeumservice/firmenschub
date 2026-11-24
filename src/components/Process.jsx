@@ -64,10 +64,10 @@ export function Process() {
   }, [])
 
   return (
-    <section id="ablauf" aria-labelledby="ablauf-title" className="section pt-8 md:pt-10 xl:pt-12">
+    <section aria-labelledby="ablauf-title" className="section pt-8 md:pt-10 xl:pt-12">
       <div className="shell">
         <div className="rounded-[2rem] bg-white px-4 py-14 shadow-[inset_0_0_0_1px_rgb(11_17_32/0.06)] sm:rounded-[2.5rem] sm:px-10 md:py-20 lg:px-14 lg:py-24">
-          <header className="grid items-end gap-6 lg:grid-cols-12 lg:gap-12">
+          <header id="ablauf" className="grid items-end gap-6 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-8" data-reveal>
               <SectionLabel index="04">Ablauf</SectionLabel>
               <h2 id="ablauf-title" className="h2 mt-6 text-navy">
